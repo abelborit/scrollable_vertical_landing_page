@@ -35,7 +35,7 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView(
-      // scrollDirection: Axis.vertical,
+      scrollDirection: Axis.vertical,
       children: [
         HomeView(),
         AboutView(),
