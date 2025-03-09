@@ -1,3 +1,6 @@
+
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:scrollable_vertical_landing_page/router/router.dart';
 
@@ -21,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scrollBehavior: _AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
       title: 'Scrollable Vertical Landing Page App',
       initialRoute: "/home",
@@ -30,4 +34,15 @@ class _MyAppState extends State<MyApp> {
       onGenerateRoute: RouterWithFluro.router.generator,
     );
   }
+}
+
+/* Para que se pueda hacer Scroll en Flutter Web con PageView: https://stackoverflow.com/questions/69424933/flutter-pageview-not-swipeable-on-web-desktop-mode */
+/*  */
+class _AppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.trackpad,
+  };
 }
