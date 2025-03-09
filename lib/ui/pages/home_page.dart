@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: customBoxDecoration(),
         /* el Widget "Stack" para colocar elementos superpuestos, en este caso un menú en la esquina superior derecha */
         child: Stack(
           children: [
@@ -28,6 +29,20 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
+  /* para crear un gradiente en el fondo */
+  BoxDecoration customBoxDecoration() => BoxDecoration(
+    gradient: LinearGradient(
+      colors: [Colors.pink, Colors.redAccent],
+
+      /* dónde empieza y dónde termina el gradiente */
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+
+      /* puntos de quiebre del gradiente, es decir, qué tanto espacio ocupa de la pantalla, colocando "[0.5, 0.5]" veremos que estarán como colores sólidos y es el efecto que queríamos conseguir para dar la ilusión de que se estira la pantalla tanto en la parte superior como en al parte inferior */
+      stops: [0.5, 0.5],
+    ),
+  );
 }
 
 /* este "_HomeBody" estará como privado porque no queremos que se pueda usar fuera de este archivo, solo estamos separando la lógica para dividir responsabilidades y mejorar la legibilidad */
@@ -46,4 +61,3 @@ class _HomeBody extends StatelessWidget {
     );
   }
 }
-
