@@ -50,6 +50,8 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView(
+      /* para solucionar que la primera página no se estire al momento de querer bajarla y al revés igual, es decir, la última página no se estire al querer subirla. Eso viene por defecto en iOS pero si se está trabajando en windows y se quiere el mismo efecto basta con agregar el BouncingScrollPhysics() en el PageView */
+      physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       children: [
         HomeView(),
