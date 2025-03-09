@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 /* Para que se pueda hacer Scroll en Flutter Web con PageView: https://stackoverflow.com/questions/69424933/flutter-pageview-not-swipeable-on-web-desktop-mode */
-/*  */
+/* From flutter 3.3, trackpad on laptops not working for scroll and swipe actions, if you need to support trackpad too, you need add PointerDeviceKind.trackpad to dragDevices like this: */
 class _AppScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
