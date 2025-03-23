@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:scrollable_vertical_landing_page/ui/shared/custom_app_menu.dart';
 import 'package:scrollable_vertical_landing_page/ui/views/about_view.dart';
 import 'package:scrollable_vertical_landing_page/ui/views/contact_view.dart';
 import 'package:scrollable_vertical_landing_page/ui/views/home_view.dart';
@@ -22,18 +23,7 @@ class HomePage extends StatelessWidget {
             const SmoothScrollBody(),
 
             /* Ejemplo de un widget superpuesto (por ejemplo, menú) */
-            Positioned(
-              right: 20,
-              top: 20,
-              child: Container(
-                width: 180,
-                height: 50,
-                color: Colors.black,
-                child: const Center(
-                  child: Text("Menú", style: TextStyle(color: Colors.white)),
-                ),
-              ),
-            ),
+            Positioned(right: 20, top: 20, child: CustomAppMenu()),
           ],
         ),
       ),
