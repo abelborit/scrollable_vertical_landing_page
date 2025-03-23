@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrollable_vertical_landing_page/ui/shared/custom_menu_item.dart';
 
 class CustomAppMenu extends StatefulWidget {
   const CustomAppMenu({super.key});
@@ -48,10 +49,11 @@ class _CustomAppMenuState extends State<CustomAppMenu>
       /* "GestureDetector" -> Creates a widget that detects gestures. */
       child: GestureDetector(
         onTap: _handleToggleMenu,
+        /* aquí se podría colocar un "AnimatedContainer" en lugar de "Container" y colocarle una duración para que cuando cambie la altura del contenedor entonces se haga mediante una animación */
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
           width: 150,
-          height: 50,
+          height: isOpen ? 312 : 50,
           decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(8),
@@ -63,28 +65,19 @@ class _CustomAppMenuState extends State<CustomAppMenu>
               ),
             ],
           ),
-          child: Row(
+          child: Column(
             children: [
-              /* el AnimatedContainer es como un Container solo que ahora tiene las propiedades para realizar animación. Se está colocando un espacio animado que aparece al abrir */
-              AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                curve: Curves.fastOutSlowIn,
-                width: isOpen ? 50 : 0,
-              ),
-              Text(
-                "Menu",
-                style: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Spacer(),
-              AnimatedIcon(
-                icon: AnimatedIcons.menu_close,
-                progress: controller,
-                color: Colors.white,
-              ),
+              /* se está colocando el widget de forma aparte para mejorar la legibilidad del código y también el principio de responsabilidad única y modularidad */
+              _MenuTitle(isOpen: isOpen, controller: controller),
+
+              /* esto es algo que pocos lenguajes de programación permiten, en este caso Dart nos da la facilidad de poder hacer un condicional de la siguiente forma (condicional y poder esparcir los elementos de un arreglo de forma directa), porque nosotros no queremos que siempre estén presentes los items del menú, solo cuando sea necesario */
+              if (isOpen) ...[
+                CustomMenuItem(text: "Home", onPressed: () {}),
+                CustomMenuItem(text: "About", onPressed: () {}),
+                CustomMenuItem(text: "Pricing", onPressed: () {}),
+                CustomMenuItem(text: "Contact", onPressed: () {}),
+                CustomMenuItem(text: "Location", onPressed: () {}),
+              ],
             ],
           ),
         ),
@@ -100,5 +93,44 @@ class _CustomAppMenuState extends State<CustomAppMenu>
 
     /* Llama al método dispose() de la clase base (State), asegurando que cualquier limpieza adicional en la jerarquía de Flutter se realice correctamente. */
     super.dispose();
+  }
+}
+
+class _MenuTitle extends StatelessWidget {
+  const _MenuTitle({required this.isOpen, required this.controller});
+
+  final bool isOpen;
+  final AnimationController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 50,
+      child: Row(
+        children: [
+          /* el AnimatedContainer es como un Container solo que ahora tiene las propiedades para realizar animación. Se está colocando un espacio animado que aparece al abrir */
+          AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.fastOutSlowIn,
+            width: isOpen ? 37.5 : 0,
+          ),
+          Text(
+            "Menu",
+            style: GoogleFonts.roboto(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Spacer(),
+          AnimatedIcon(
+            icon: AnimatedIcons.menu_close,
+            progress: controller,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
   }
 }
